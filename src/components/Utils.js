@@ -113,10 +113,16 @@ export const Text = styled.Text`
     css`
       font-size: ${props.size}px;
     `}
+    ${(props) =>
+    props.secondary &&
+    css`
+      color: ${Colors.secondaryText};
+    `}
 `;
 Text.propTypes = {
   color: PropTypes.string,
   size: PropTypes.number,
+  secondary: PropTypes.string,
 };
 
 Text.defaultProps = {
