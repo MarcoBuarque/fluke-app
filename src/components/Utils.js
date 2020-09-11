@@ -6,6 +6,11 @@ import Colors from './../utils/Style/Colors';
 
 export const View = styled.View`
   ${(props) =>
+    props.flex &&
+    css`
+      flex: ${props.flex};
+    `}
+  ${(props) =>
     props.color &&
     css`
       background-color: ${props.color};
@@ -23,42 +28,57 @@ export const View = styled.View`
   ${(props) =>
     props.padding &&
     css`
-      padding: ${(props) => props.padding}px;
+      padding: ${props.padding}px;
     `}
   ${(props) =>
     props.paddingTop &&
     css`
-      padding-top: ${(props) => props.paddingTop}px;
+      padding-top: ${props.paddingTop}px;
     `}
   ${(props) =>
     props.paddingBottom &&
     css`
-      padding-bottom: ${(props) => props.paddingBottom}px;
+      padding-bottom: ${props.paddingBottom}px;
     `}
   ${(props) =>
     props.paddingLeft &&
     css`
-      padding-left: ${(props) => props.paddingLeft}px;
+      padding-left: ${props.paddingLeft}px;
     `}
   ${(props) =>
     props.paddingRight &&
     css`
-      padding-right: ${(props) => props.paddingRight}px;
+      padding-right: ${props.paddingRight}px;
     `}
   ${(props) =>
     props.align &&
     css`
-      align-items: ${(props) => props.align};
+      align-items: ${props.align};
     `}
   ${(props) =>
     props.justify &&
     css`
-      justify-content: ${(props) => props.justify};
+      justify-content: ${props.justify};
     `}
     ${(props) =>
     props.background &&
     css`
-      background-color: ${(props) => props.background};
+      background-color: ${props.background};
+    `}
+    ${(props) =>
+    props.borderWidth &&
+    css`
+      border-width: ${props.borderWidth};
+    `}
+    ${(props) =>
+    props.borderColor &&
+    css`
+      border-color: ${props.borderColor};
+    `}
+    ${(props) =>
+    props.borderRadius &&
+    css`
+      border-radius: ${props.borderRadius};
     `}
 `;
 
@@ -66,10 +86,17 @@ View.propTypes = {
   color: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
-  alignItems: PropTypes.string,
-  justifyContent: PropTypes.string,
+  align: PropTypes.string,
+  justify: PropTypes.string,
   background: PropTypes.string,
+  borderWidth: PropTypes.number,
+  borderColor: PropTypes.string,
+  borderRadius: PropTypes.number,
 };
+
+// View.defaultProps = {
+//   color: Colors.background,
+// };
 
 export const Row = styled(View)`
   flex-direction: row;
@@ -97,7 +124,32 @@ Text.defaultProps = {
   size: 16,
 };
 
-export const Container = styled(View)`
-  flex: 1;
-  padding-horizontal: 16px;
+export const Container = styled(View).attrs((props) => ({
+  background: props.color,
+}))`
+  padding: 16px;
 `;
+
+Container.propTypes = {
+  colors: PropTypes.string,
+};
+
+Container.defaultProps = {
+  color: Colors.background,
+};
+
+export const SafeAre = styled.SafeAreaView`
+  flex: 1;
+  ${(props) =>
+    props.background &&
+    css`
+      background-color: ${props.background};
+    `}
+`;
+SafeAre.propTypes = {
+  background: PropTypes.string,
+};
+
+SafeAre.defaultProps = {
+  background: Colors.background,
+};
