@@ -13,14 +13,20 @@ export const Home = ({navigation}) => {
       usedData: 15,
       totalData: 20,
       dataType: 'Min',
-      // onPress: () => navigation.navigate('DataDetail'),
+      onPress: () =>
+        navigation.navigate('DataDetail', {
+          type: 'Minutos',
+        }),
     },
     {
       title: 'Dados Móveis',
       usedData: 1500000,
       totalData: 2000,
       dataType: 'MB',
-      // onPress: () => navigation.navigate('DataDetail'),
+      onPress: () =>
+        navigation.navigate('DataDetail', {
+          type: 'DadosMoveis',
+        }),
     },
   ];
   return (
