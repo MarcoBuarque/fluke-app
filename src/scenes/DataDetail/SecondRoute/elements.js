@@ -40,3 +40,33 @@ DateSelector.prototype = {
 DateSelector.defaultProps = {
   onPress: () => {},
 };
+
+export const HistoricItem = ({item}) => {
+  const {date, voice, data} = item;
+  return (
+    <Utils.View
+      marginTop={16}
+      padding={12}
+      background="#0ef500"
+      borderRadius={6}>
+      <Utils.Row justify="space-between">
+        <Utils.Text color="black">Consumidos: </Utils.Text>
+        <Utils.Text size={12}>Data: {date}</Utils.Text>
+      </Utils.Row>
+      <Utils.Row align="center" justify="space-around">
+        <Utils.Row align="center">
+          <Utils.Text color="black">Minutos:</Utils.Text>
+          <Utils.Text color="black" size={14}>
+            {voice}
+          </Utils.Text>
+        </Utils.Row>
+        <Utils.Row align="center">
+          <Utils.Text color="black">Dados:</Utils.Text>
+          <Utils.Text color="black" size={14}>
+            {data} MB
+          </Utils.Text>
+        </Utils.Row>
+      </Utils.Row>
+    </Utils.View>
+  );
+};

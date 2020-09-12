@@ -1,22 +1,20 @@
 import React, {useState} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {StyleSheet, FlatList} from 'react-native';
 import PropTypes from 'prop-types';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 // Design
 import * as Utils from './../../../components/Utils';
-import {DateSelector} from './elements';
+import {DateSelector, HistoricItem} from './elements';
 
 // Utils
 import {MIN_DATE, MAX_DATE} from './../../../utils/constants';
-import Colors from './../../../utils/Style/Colors';
 import {formatDate} from './../../../utils/numberUtils';
 
 const testSecondRout = [
   {voice: 600, data: 2048, date: '2020-08-01'},
   {voice: 120, data: 1048, date: '2020-08-02'},
   {voice: 360, data: 256, date: '2020-08-03'},
-  ,
 ];
 
 export const SecondRoute = () => {
@@ -63,7 +61,7 @@ export const SecondRoute = () => {
   };
 
   return (
-    <Utils.Container>
+    <Utils.Container style={{flex: 1}}>
       <Utils.Row justify="space-around">
         <DateSelector
           label="De:"
@@ -96,11 +94,20 @@ export const SecondRoute = () => {
           minimumDate={dateStart}
         />
       )}
-      {/* <FlatList
-
-    /> */}
+      <Utils.View style={styles.listWrapper}>
+        <FlatList
+          keyExtractor={(item, index) => `${index}-${item.date}`}
+          data={testSecondRout}
+          renderItem={HistoricItem}
+          showsVerticalScrollIndicator={false}
+        />
+      </Utils.View>
     </Utils.Container>
   );
 };
+
+const styles = StyleSheet.create({
+  listWrapper: {flex: 1, paddingTop: 10},
+});
 
 export default SecondRoute;
