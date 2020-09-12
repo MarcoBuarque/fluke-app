@@ -20,3 +20,5 @@ export const formatDate = (dateObj) => {
     year: dateObj.getFullYear(),
   };
 };
+
+export const numberToPercentage = (num) => Number((num * 100).toFixed(2));

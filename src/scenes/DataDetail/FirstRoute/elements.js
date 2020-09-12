@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 import * as Utils from './../../../components/Utils';
 
 export const ChartItem = ({item}) => {
-  const {name, color, percentage} = item;
+  const {
+    name,
+    section: {color, percentage},
+  } = item;
   return (
     <Utils.Row padding={10} borderRadius={6}>
       <Utils.View width={20} height={20} background={color} marginRight={10} />

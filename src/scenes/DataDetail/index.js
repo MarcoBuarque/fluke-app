@@ -7,18 +7,19 @@ import TabView from './../../components/TabView';
 import FirstRoute from './FirstRoute';
 import SecondRoute from './SecondRoute';
 
-const firstRoute = {
-  name: 'Gráfico',
-  component: FirstRoute,
-};
-
-const secondRoute = {
-  name: 'Histórico',
-  component: SecondRoute,
-};
-
 export const DataDetail = ({route, navigation}) => {
-  const {type} = route.params;
+  const {type, data} = route.params;
+  const firstRoute = {
+    name: 'Gráfico',
+    component: () => <FirstRoute data={data} />,
+  };
+
+  const secondRoute = {
+    name: 'Histórico',
+    data,
+    component: () => <SecondRoute data={data} />,
+  };
+
   return (
     <Utils.SafeAre>
       <Header

@@ -7,78 +7,103 @@ import Pie from 'react-native-pie';
 import * as Utils from './../../../components/Utils';
 import {ChartItem} from './elements';
 
-const test = [
-  {
-    name: 'subscription',
-    dataValue: 5000,
-    available: 700,
-    dataType: 'MB',
-    color: '#7CFC00',
-    percentage: '30',
-  },
-  {
-    name: 'topup',
-    dataValue: 4000,
-    dataType: 'MB',
-    available: 800,
-    color: '#EBD22F',
-    percentage: '03',
-  },
-  {
-    name: 'bonus',
-    dataValue: 3000,
-    dataType: 'MB',
-    color: '#404FCD',
-    available: 500,
-    percentage: '05',
-  },
-  {
-    name: 'gasto',
-    dataValue: 3000,
-    dataType: 'MB',
-    color: '#f00',
-    available: 500,
-    percentage: '80',
-  },
-];
+// Utils
+import {numberToPercentage} from './../../../utils/numberUtils';
+import Colors from './../../../utils/Style/Colors';
 
+const formatSectionsData = (data) => {
+  const {
+    subscription, // Contratados
+    topUp, // Extra Contratados
+    bonus, // Bonus
+    available, // Disponivel
+    totalData,
+    usedData,
+  } = data;
+  let usedPercentage = usedData / totalData;
+  let av = available;
+  let bonusPercentage = 0;
+  let topUpPercentage = 0;
+  let subscriptionPercentage = 0;
+  // eslint-disable-next-line prettier/prettier
+  if (topUp && av > 0) {
+    topUpPercentage = topUp >= av ? av / totalData : topUp / totalData;
+    av = topUp >= av ? 0 : av - topUp;
+  }
+  if (bonus > 0 && av > 0) {
+    bonusPercentage = bonus >= av ? av / totalData : bonus / totalData;
+    av = bonus >= av ? 0 : av - bonus;
+  }
+  if (subscription > 0 && av > 0) {
+    subscriptionPercentage =
+      subscription >= av ? av / totalData : subscription / totalData;
+    av = subscription >= av ? 0 : av - subscription;
+  }
+
+  const list = [
+    {
+      name: 'Usado',
+      section: {
+        percentage: numberToPercentage(usedPercentage),
+        color: Colors.pieChart.used,
+      },
+    },
+    {
+      name: 'Bonus',
+      section: {
+        percentage: numberToPercentage(bonusPercentage),
+        color: Colors.pieChart.bonus,
+      },
+    },
+    {
+      name: 'Adicional Contratado',
+      section: {
+        percentage: numberToPercentage(topUpPercentage),
+        color: Colors.pieChart.topUp,
+      },
+    },
+    {
+      name: 'Contratado',
+      section: {
+        percentage: numberToPercentage(subscriptionPercentage),
+        color: Colors.pieChart.subscription,
+      },
+    },
+  ];
+
+  const sortedList = list.sort(
+    (a, b) => b.section.percentage - a.section.percentage,
+  );
+
+  return sortedList;
+};
 export const FirstRoute = ({data}) => {
-  const sortedData = test.sort((a, b) => b.percentage - a.percentage);
+  console.log('dataaaa', data);
+  const sectionsData = formatSectionsData(data);
+  const pieData = sectionsData.map((item) => item.section);
+
   return (
     <Utils.Container>
-      <Utils.View align="center" paddingTop={30}>
+      <Utils.View align="center" paddingTop={30} paddingBottom={16}>
         <Pie
           radius={80}
           innerRadius={75}
-          sections={[
-            {
-              percentage: 80,
-              color: '#f00',
-            },
-            {
-              percentage: 30,
-              color: '#EBD22F',
-            },
-            {
-              percentage: 15,
-              color: '#404FCD',
-            },
-            {
-              percentage: 5,
-              color: '#7CFC00',
-            },
-          ]}
+          sections={pieData}
           backgroundColor="#ddd"
         />
       </Utils.View>
       <FlatList
         keyExtractor={(item, index) => `${item.name}-${index}`}
-        data={sortedData}
+        data={sectionsData}
         renderItem={ChartItem}
       />
       <Utils.View padding={10}>
-        <Utils.Text size={14}>TOTAL: MB</Utils.Text>
-        <Utils.Text size={14}>DISPONÍVEL: MB</Utils.Text>
+        <Utils.Text size={14}>
+          TOTAL: {data.totalData} {data.dataType}
+        </Utils.Text>
+        <Utils.Text size={14}>
+          DISPONÍVEL: {data.available} {data.dataType}
+        </Utils.Text>
       </Utils.View>
     </Utils.Container>
   );

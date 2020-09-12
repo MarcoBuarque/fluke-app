@@ -12,6 +12,7 @@ export const fetchMobileDataPlan = async () => {
     const available = get(data, 'available', 0); // DIsponivel
     const totalData = subscription + topUp + bonus;
     const usedData = totalData - available;
+
     return {
       title: 'Dados Móveis',
       subscription, // Contratados
