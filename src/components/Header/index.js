@@ -8,8 +8,10 @@ import * as Utils from './../Utils';
 export const Header = ({title, onGoBack}) => {
   return (
     <Utils.Container>
-      <Utils.Text size={22}>{title}</Utils.Text>
-      {onGoBack && <GoBack onPress={onGoBack} />}
+      <Utils.Row>
+        <Utils.Text size={22}>{title}</Utils.Text>
+        {!!onGoBack && <GoBack onPress={onGoBack} />}
+      </Utils.Row>
     </Utils.Container>
   );
 };

@@ -17,7 +17,7 @@ export const Item = ({item}) => {
   const {title, usedData, totalData, dataType, onPress} = item;
   const percentageAvailable = ((totalData - usedData) / totalData) * 100;
   return (
-    <TouchableOpacity onPress={onPress} style={styles.itemContent}>
+    <TouchableOpacity onPress={onPress} style={styles.itemWrapper}>
       <Utils.Row
         flex={1}
         padding={10}
@@ -96,7 +96,7 @@ List.prototype = {
 };
 
 const styles = StyleSheet.create({
-  itemContent: {paddingBottom: 10, flex: 1},
+  itemWrapper: {paddingBottom: 10, flex: 1},
   chevron: {
     alignItems: 'flex-end',
     justifyContent: 'center',
