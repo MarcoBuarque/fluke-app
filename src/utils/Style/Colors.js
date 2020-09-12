@@ -10,6 +10,9 @@ const Colors = {
   text: '#818181',
   secondaryText: '#0ef500',
   button: '#7CFC00',
+
+  // Actions
+  error: '#ff3333',
 };
 
 export default Colors;

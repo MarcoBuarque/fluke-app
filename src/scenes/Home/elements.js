@@ -14,10 +14,22 @@ import Colors from './../../utils/Style/Colors';
 // https://awesomeopensource.com/project/JesperLekland/react-native-svg-charts-examples
 
 export const Item = ({item}) => {
-  const {title, usedData, totalData, dataType, onPress} = item;
-  const percentageAvailable = ((totalData - usedData) / totalData) * 100;
+  const {
+    title,
+    usedData,
+    totalData,
+    dataType,
+    onPress,
+    available,
+    disabled,
+  } = item;
+  const percentageAvailable = parseInt((available / totalData) * 100, 10);
+
   return (
-    <TouchableOpacity onPress={onPress} style={styles.itemWrapper}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.itemWrapper}
+      disabled={disabled}>
       <Utils.Row
         flex={1}
         padding={10}
@@ -34,7 +46,7 @@ export const Item = ({item}) => {
               <Utils.Row align="center">
                 <Utils.View paddingRight={20} flex={0.5}>
                   <Utils.Text size={12} numberOfLines={1} color={Colors.black}>
-                    Disponíveis: {`${totalData - usedData} ${dataType}`}
+                    Disponíveis: {`${available} ${dataType}`}
                   </Utils.Text>
                   <Utils.Text size={12} numberOfLines={1} color={Colors.black}>
                     Consumidos: {`${usedData} ${dataType}`}
@@ -46,7 +58,7 @@ export const Item = ({item}) => {
                     radius={20}
                     borderWidth={3}
                     color={Colors.red}
-                    shadowColor="#6959CD"
+                    shadowColor="#6959CD" // TODO: COLOCAR A COR NO COLORS
                     bgColor={Colors.secondaryBackground}>
                     <Utils.Text size={8} color={Colors.black}>
                       {percentageAvailable}%
@@ -73,11 +85,13 @@ ListItem.prototype = {
   totalData: PropTypes.number.isRequired,
   dataType: PropTypes.string,
   onPress: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 ListItem.defaultProps = {
   dataType: 'GB',
   onPress: () => {},
+  disabled: false,
 };
 
 export const List = ({list}) => {
