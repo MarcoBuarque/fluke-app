@@ -12,3 +12,11 @@ export const convertMinToHr = (time) => {
 };
 
 export const convertMbToGb = (data) => {};
+
+export const formatDate = (dateObj) => {
+  return {
+    day: dateObj.getDate(),
+    month: dateObj.getMonth() + 1,
+    year: dateObj.getFullYear(),
+  };
+};

@@ -1,12 +1,22 @@
 import React from 'react';
+import {TouchableOpacity, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Design
 import * as Utils from './../Utils';
 
-export const GoBack = (onGoBack) => {
+export const GoBack = ({onPress}) => {
   return (
-    <Utils.View>
-      <Utils.Text>USAR ICONE</Utils.Text>
-    </Utils.View>
+    <TouchableOpacity style={styles.goBackWrapper} onPress={onPress}>
+      <Icon name="arrow-back-outline" size={22} />
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  goBackWrapper: {
+    flex: 1,
+    alignItems: 'flex-end',
+    padding: 6,
+  },
+});

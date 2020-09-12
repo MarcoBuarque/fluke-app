@@ -1,17 +1,34 @@
 import React from 'react';
-import {Text, SafeAreaView, TouchableOpacity} from 'react-native';
+
+// Design
+import * as Utils from './../../components/Utils';
+import Header from './../../components/Header';
+import TabView from './../../components/TabView';
+import FirstRoute from './FirstRoute';
+import SecondRoute from './SecondRoute';
+
+const firstRoute = {
+  name: 'Gráfico',
+  component: FirstRoute,
+};
+
+const secondRoute = {
+  name: 'Histórico',
+  component: SecondRoute,
+};
 
 export const DataDetail = ({route, navigation}) => {
   const {type} = route.params;
   return (
-    <SafeAreaView>
-      <Text>DataDetail TESTTT {type}</Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Home')}
-        style={{backgroundColor: 'red', padding: 16, marginTop: 10}}>
-        <Text>GO TO HOME</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+    <Utils.SafeAre>
+      <Header
+        title={`Detalhes dos ${type}`}
+        onGoBack={() => navigation.goBack()}
+      />
+      {/* <Utils.Container> */}
+      <TabView firstRoute={firstRoute} secondRoute={secondRoute} />
+      {/* </Utils.Container> */}
+    </Utils.SafeAre>
   );
 };
 
