@@ -1,9 +1,20 @@
 import React from 'react';
-import {Text, SafeAreaView, TouchableOpacity} from 'react-native';
 
 // Design
 import * as Utils from './../../components/Utils';
 import Header from './../../components/Header';
+import TabView from './../../components/TabView';
+import {FirstRoute, SecondRoute} from './elements';
+
+const firstRoute = {
+  name: 'Gráfico',
+  component: FirstRoute,
+};
+
+const secondRoute = {
+  name: 'Histórico',
+  component: SecondRoute,
+};
 
 export const DataDetail = ({route, navigation}) => {
   const {type} = route.params;
@@ -13,9 +24,9 @@ export const DataDetail = ({route, navigation}) => {
         title={`Detalhes dos ${type}`}
         onGoBack={() => navigation.goBack()}
       />
-      <Utils.Container>
-        <Utils.Text>INITTT</Utils.Text>
-      </Utils.Container>
+      {/* <Utils.Container> */}
+      <TabView firstRoute={firstRoute} secondRoute={secondRoute} />
+      {/* </Utils.Container> */}
     </Utils.SafeAre>
   );
 };

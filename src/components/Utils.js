@@ -18,12 +18,12 @@ export const View = styled.View`
   ${(props) =>
     props.width &&
     css`
-      width: ${props.width};
+      width: ${props.width}px;
     `}
   ${(props) =>
     props.height &&
     css`
-      height: ${props.height};
+      height: ${props.height}px;
     `}
   ${(props) =>
     props.padding &&
@@ -78,7 +78,7 @@ export const View = styled.View`
     ${(props) =>
     props.borderRadius &&
     css`
-      border-radius: ${props.borderRadius};
+      border-radius: ${props.borderRadius}px;
     `}
 `;
 

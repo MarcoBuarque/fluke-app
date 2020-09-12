@@ -84,7 +84,6 @@ export const List = ({list}) => {
   return (
     <FlatList
       data={list}
-      // renderItem={(item) => renderItem(item)}
       renderItem={Item}
       keyExtractor={(item, index) => `${item.title}-${index}`}
     />
