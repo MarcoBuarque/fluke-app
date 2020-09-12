@@ -1,10 +1,17 @@
-import React from 'react';
-import {StyleSheet, FlatList} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, FlatList, Button, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import Pie from 'react-native-pie';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Design
 import * as Utils from './../../components/Utils';
+
+// Utils
+import {MIN_DATE, MAX_DATE} from './../../utils/constants';
+import Colors from './../../utils/Style/Colors';
+import {formatDate} from './../../utils/numberUtils';
 
 const test = [
   {
@@ -105,8 +112,110 @@ renderFirstRouteItem.prototype = {
   percentage: PropTypes.number,
 };
 
-export const SecondRoute = () => (
-  <Utils.View style={[styles.scene, {backgroundColor: '#673ab7'}]} />
+export const SecondRoute = () => {
+  const [dateStart, setDateStart] = useState(MIN_DATE);
+  // eslint-disable-next-line prettier/prettier
+  const [formatedDateStart, setFormatedDateStart] = useState(formatDate(MIN_DATE),);
+  const [showStart, setShowStart] = useState(false);
+  const [dateEnd, setDateEnd] = useState(MAX_DATE);
+  const [formatedDateEnd, setFormatedDateEnd] = useState(formatDate(MAX_DATE));
+  const [showEnd, setShowEnd] = useState(false);
+
+  const choiceStartDate = (event) => {
+    const {
+      nativeEvent: {timestamp},
+      type,
+    } = event;
+    const date = new Date(timestamp);
+
+    setShowStart(false);
+    if (type === 'set') {
+      setDateStart(date);
+      setFormatedDateStart(formatDate(date));
+
+      console.log(timestamp > dateEnd.getTime());
+      if (timestamp > dateEnd.getTime()) {
+        setDateEnd(date);
+        setFormatedDateEnd(formatDate(date));
+      }
+    }
+  };
+
+  const choiceEndDate = (event) => {
+    const {
+      nativeEvent: {timestamp},
+      type,
+    } = event;
+    const date = new Date(timestamp);
+
+    setShowEnd(false);
+    if (type === 'set') {
+      setDateEnd(date);
+      setFormatedDateEnd(formatDate(date));
+    }
+  };
+
+  return (
+    <Utils.Container>
+      <Utils.Row justify="space-around">
+        <DateSelector
+          label="De"
+          onPress={() => setShowStart(true)}
+          dateObj={formatedDateStart}
+        />
+        <DateSelector
+          label="Até"
+          onPress={() => setShowEnd(true)}
+          dateObj={formatedDateEnd}
+        />
+      </Utils.Row>
+      {showStart && (
+        <RNDateTimePicker
+          mode="date"
+          onChange={choiceStartDate}
+          display="default"
+          value={dateStart}
+          maximumDate={MAX_DATE}
+          minimumDate={MIN_DATE}
+        />
+      )}
+      {showEnd && (
+        <RNDateTimePicker
+          mode="date"
+          onChange={choiceEndDate}
+          display="default"
+          value={dateEnd}
+          maximumDate={MAX_DATE}
+          minimumDate={dateStart}
+        />
+      )}
+      {/* <FlatList
+
+    /> */}
+    </Utils.Container>
+  );
+};
+
+const DateSelector = ({label, onPress, dateObj}) => (
+  <Utils.Row align="center" background="black" padding={6} borderRadius={6}>
+    <Utils.Text secondary size={14}>
+      {label}
+    </Utils.Text>
+    <TouchableOpacity onPress={onPress}>
+      <Utils.Row paddingLeft={6}>
+        <Utils.Text color={Colors.white} size={14}>
+          {`${dateObj.day}/${dateObj.month}/${dateObj.year}`}
+        </Utils.Text>
+        <Utils.View paddingLeft={6}>
+          <Icon
+            name="chevron-down-outline"
+            color={Colors.secondaryText}
+            size={16}
+          />
+        </Utils.View>
+      </Utils.Row>
+    </TouchableOpacity>
+  </Utils.Row>
 );
 
 const styles = StyleSheet.create({
