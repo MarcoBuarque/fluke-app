@@ -4,7 +4,8 @@ import React from 'react';
 import * as Utils from './../../components/Utils';
 import Header from './../../components/Header';
 import TabView from './../../components/TabView';
-import {FirstRoute, SecondRoute} from './elements';
+import FirstRoute from './FirstRoute';
+import SecondRoute from './SecondRoute';
 
 const firstRoute = {
   name: 'Gráfico',
