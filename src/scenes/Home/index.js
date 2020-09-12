@@ -26,17 +26,25 @@ const voiceData = {
 export const Home = ({navigation}) => {
   const [dataMobile, setDataMobile] = useState({});
   const [fetchData, setFetchData] = useState(true);
-  const [fetchError, setFetchError] = useState(false); // todo: criar um layout para o fetch error
+  const [fetchError, setFetchError] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+
+  useLayoutEffect(() => {
+    fetchMobileData();
+  }, []);
 
   const fetchMobileData = useCallback(async (isRefreshControl = false) => {
     try {
+      const response = await fetchMobileDataPlan();
+
       const onPressMobileDataCard = () =>
         navigation.navigate('DataDetail', {
           type: 'DadosMoveis',
+          data: response,
         });
-      const response = await fetchMobileDataPlan(onPressMobileDataCard);
-      setDataMobile({...dataMobile, ...response});
+      const formatedObj = {...response, onPress: onPressMobileDataCard};
+
+      setDataMobile({...dataMobile, ...formatedObj});
     } catch (error) {
       setFetchError(true);
     } finally {
@@ -53,11 +61,6 @@ export const Home = ({navigation}) => {
     fetchMobileData(true);
   }, []);
 
-  useLayoutEffect(() => {
-    fetchMobileData();
-  }, []);
-
-  console.log('dataaaa', dataMobile);
   return (
     <Utils.SafeAre>
       <Header title="Home" />
@@ -75,7 +78,7 @@ export const Home = ({navigation}) => {
           {fetchData && <Utils.LoadingIndicator />}
           {fetchError && (
             <Utils.Text color={Colors.error}>
-              Algo deu errado no fetch dos dados, por favor tente novamente
+              Algo deu errado no fetch dos dados, por favor tente novamente.
             </Utils.Text>
           )}
         </Utils.Container>

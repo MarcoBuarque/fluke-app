@@ -2,7 +2,7 @@ import axios from 'axios';
 import {FLUKE_API} from '@env';
 import get from 'lodash/get';
 
-export const fetchMobileDataPlan = async (onPress = () => {}) => {
+export const fetchMobileDataPlan = async () => {
   try {
     const {data} = await axios.get(`${FLUKE_API}/usage/packageInformation/`);
 
@@ -21,7 +21,6 @@ export const fetchMobileDataPlan = async (onPress = () => {}) => {
       totalData,
       usedData,
       dataType: 'MB', // todo: use GB
-      onPress,
     };
   } catch (error) {
     throw error;
