@@ -5,13 +5,10 @@ import {StyleSheet} from 'react-native';
 import {fetchMobileDataPlan} from './../../services/fluke';
 
 // Design
-import {List} from './elements';
+import {List, HelpButton} from './elements';
 import * as Utils from './../../components/Utils';
 import Header from './../../components/Header';
 import ErrorText from './../../components/ErrorText';
-
-// Utils
-import Colors from './../../utils/Style/Colors';
 
 const voiceData = {
   title: 'Minutos',
@@ -39,7 +36,7 @@ export const Home = ({navigation}) => {
 
       const onPressMobileDataCard = () =>
         navigation.navigate('DataDetail', {
-          type: 'DadosMoveis',
+          type: 'Dados Moveis',
           data: response,
         });
       const formatedObj = {...response, onPress: onPressMobileDataCard};
@@ -63,8 +60,7 @@ export const Home = ({navigation}) => {
 
   return (
     <Utils.SafeAre>
-      <Header title="Home" />
-
+      <Header title="Home" rightComponent={() => <HelpButton />} />
       <Utils.Container style={styles.container}>
         <Utils.View paddingBottom={16}>
           <List

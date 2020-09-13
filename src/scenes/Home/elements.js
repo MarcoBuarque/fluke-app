@@ -1,9 +1,10 @@
 import React from 'react';
-import {FlatList, TouchableOpacity, StyleSheet} from 'react-native';
+import {FlatList, TouchableOpacity, StyleSheet, Linking} from 'react-native';
 import PropTypes from 'prop-types';
 import ProgressCircle from 'react-native-progress-circle';
-// import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {ListItem} from 'react-native-elements';
+import isEmpty from 'lodash/isEmpty';
 
 // Design
 import * as Utils from './../../components/Utils';
@@ -14,6 +15,9 @@ import Colors from './../../utils/Style/Colors';
 // https://awesomeopensource.com/project/JesperLekland/react-native-svg-charts-examples
 
 export const Item = ({item}) => {
+  if (isEmpty(item)) {
+    return null;
+  }
   const {
     title,
     usedData,
@@ -43,7 +47,7 @@ export const Item = ({item}) => {
                   {title}
                 </Utils.Text>
               </Utils.View>
-              <Utils.Row align="center">
+              <Utils.Row align="center" marginRight={disabled ? 30 : 1}>
                 <Utils.View paddingRight={20} flex={0.5}>
                   <Utils.Text size={12} numberOfLines={1} color={Colors.black}>
                     Disponíveis: {`${available} ${dataType}`}
@@ -58,7 +62,7 @@ export const Item = ({item}) => {
                     radius={20}
                     borderWidth={3}
                     color={Colors.red}
-                    shadowColor="#6959CD" // TODO: COLOCAR A COR NO COLORS
+                    shadowColor={Colors.blue}
                     bgColor={Colors.secondaryBackground}>
                     <Utils.Text size={8} color={Colors.black}>
                       {percentageAvailable}%
@@ -69,11 +73,11 @@ export const Item = ({item}) => {
             </Utils.View>
           </Utils.Row>
         </Utils.View>
-        <Utils.View style={styles.chevron}>
-          <Utils.View>
+        {!disabled && (
+          <Utils.View style={styles.chevron}>
             <ListItem.Chevron color={Colors.black} size={30} />
           </Utils.View>
-        </Utils.View>
+        )}
       </Utils.Row>
     </TouchableOpacity>
   );
@@ -123,4 +127,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontSize: 50,
   },
+  helpBtnWrapper: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
 });
+
+export const HelpButton = () => (
+  <TouchableOpacity
+    style={styles.helpBtnWrapper}
+    onPress={() => Linking.openURL('https://flu.ke/atendimento')}>
+    <Utils.View flex={1} justify="center">
+      <Icon name="help-circle-outline" size={22} color={Colors.black} />
+    </Utils.View>
+  </TouchableOpacity>
+);

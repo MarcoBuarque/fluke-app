@@ -8,10 +8,11 @@ import * as Utils from './../../../components/Utils';
 
 // Utils
 import Colors from './../../../utils/Style/Colors';
+import {formatDate} from './../../../utils/numberUtils';
 
 export const DateSelector = ({label, onPress, dateObj}) => (
   <Utils.Row align="center" background="black" padding={6} borderRadius={6}>
-    <Utils.Text secondary={true} size={14}>
+    <Utils.Text secondary size={14}>
       {label}
     </Utils.Text>
     <TouchableOpacity onPress={onPress}>
@@ -43,6 +44,9 @@ DateSelector.defaultProps = {
 
 export const HistoryItem = ({item}) => {
   const {date, voice, data, dataType} = item;
+  const dateObj = new Date(date);
+  const formatedDate = formatDate(dateObj);
+
   return (
     <Utils.View
       marginTop={16}
@@ -51,7 +55,10 @@ export const HistoryItem = ({item}) => {
       borderRadius={6}>
       <Utils.Row justify="space-between">
         <Utils.Text color="black">Consumidos: </Utils.Text>
-        <Utils.Text size={12}>Data: {date}</Utils.Text>
+        <Utils.Text size={12}>
+          Data:{' '}
+          {`${formatedDate.day}/${formatedDate.month}/${formatedDate.year}`}
+        </Utils.Text>
       </Utils.Row>
       <Utils.Row align="center" justify="space-around">
         <Utils.Row align="center">
