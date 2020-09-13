@@ -2,6 +2,7 @@ import React from 'react';
 import {FlatList} from 'react-native';
 import PropTypes from 'prop-types';
 import Pie from 'react-native-pie';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Design
 import * as Utils from './../../../components/Utils';
@@ -78,7 +79,6 @@ const formatSectionsData = (data) => {
   return sortedList;
 };
 export const FirstRoute = ({data}) => {
-  console.log('dataaaa', data);
   const sectionsData = formatSectionsData(data);
   const pieData = sectionsData.map((item) => item.section);
 
@@ -97,14 +97,19 @@ export const FirstRoute = ({data}) => {
         data={sectionsData}
         renderItem={ChartItem}
       />
-      <Utils.View padding={10}>
-        <Utils.Text size={14}>
-          TOTAL: {data.totalData} {data.dataType}
-        </Utils.Text>
-        <Utils.Text size={14}>
-          DISPONÍVEL: {data.available} {data.dataType}
-        </Utils.Text>
-      </Utils.View>
+      <Utils.Row padding={10} align="flex-start" justify="flex-start">
+        <Utils.View>
+          <Utils.Text size={14}>
+            TOTAL: {data.totalData} {data.dataType}
+          </Utils.Text>
+          <Utils.Text size={14}>
+            DISPONÍVEL: {data.available} {data.dataType}
+          </Utils.Text>
+        </Utils.View>
+        <Utils.View padding={6} style={{position: 'absolute', right: 0}}>
+          <Icon name="information-circle-outline" size={20} />
+        </Utils.View>
+      </Utils.Row>
     </Utils.Container>
   );
 };

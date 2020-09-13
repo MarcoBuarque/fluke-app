@@ -94,18 +94,26 @@ ListItem.defaultProps = {
   disabled: false,
 };
 
-export const List = ({list}) => {
+export const List = ({list, refreshing, onRefresh}) => {
   return (
     <FlatList
       data={list}
       renderItem={Item}
       keyExtractor={(item, index) => `${item.title}-${index}`}
+      refreshControl={
+        <Utils.RefreshControlStyled
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }
     />
   );
 };
 
 List.prototype = {
   list: PropTypes.array.isRequired,
+  onRefresh: PropTypes.func,
+  refreshing: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({

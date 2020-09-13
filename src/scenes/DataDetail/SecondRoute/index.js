@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {StyleSheet, FlatList, ScrollView} from 'react-native';
+import {StyleSheet, FlatList} from 'react-native';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 // Service
@@ -133,26 +133,24 @@ export const SecondRoute = () => {
           minimumDate={dateStart}
         />
       )}
-      <ScrollView
-        style={styles.container}
-        refreshControl={
-          <Utils.RefreshControlStyled
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }>
-        <Utils.View style={styles.listWrapper}>
-          <FlatList
-            keyExtractor={(item, index) => `${index}-${item.date}`}
-            data={historyData}
-            renderItem={HistoryItem}
-            showsVerticalScrollIndicator={false}
-            onEndReachedThreshold={0.8}
-          />
-        </Utils.View>
-        {fetchData && <Utils.LoadingIndicator />}
-        {!fetchData && fetchError && <ErrorText />}
-      </ScrollView>
+
+      <Utils.View style={styles.listWrapper}>
+        <FlatList
+          keyExtractor={(item, index) => `${index}-${item.date}`}
+          data={historyData}
+          renderItem={HistoryItem}
+          showsVerticalScrollIndicator={false}
+          onEndReachedThreshold={0.8}
+          refreshControl={
+            <Utils.RefreshControlStyled
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
+        />
+      </Utils.View>
+      {fetchData && <Utils.LoadingIndicator />}
+      {!fetchData && fetchError && <ErrorText />}
     </Utils.Container>
   );
 };

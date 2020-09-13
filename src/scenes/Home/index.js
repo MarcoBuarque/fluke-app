@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {ScrollView, RefreshControl} from 'react-native';
 import {StyleSheet} from 'react-native';
 
 // Service
@@ -65,21 +64,18 @@ export const Home = ({navigation}) => {
   return (
     <Utils.SafeAre>
       <Header title="Home" />
-      <ScrollView
-        refreshControl={
-          <Utils.RefreshControlStyled
-            refreshing={refreshing}
+
+      <Utils.Container style={styles.container}>
+        <Utils.View paddingBottom={16}>
+          <List
+            list={[voiceData, dataMobile]}
             onRefresh={onRefresh}
+            refreshing={refreshing}
           />
-        }>
-        <Utils.Container style={styles.container}>
-          <Utils.View paddingBottom={16}>
-            <List list={[voiceData, dataMobile]} />
-          </Utils.View>
-          {fetchData && <Utils.LoadingIndicator />}
-          {!fetchData && fetchError && <ErrorText />}
-        </Utils.Container>
-      </ScrollView>
+        </Utils.View>
+        {fetchData && <Utils.LoadingIndicator />}
+        {!fetchData && fetchError && <ErrorText />}
+      </Utils.Container>
     </Utils.SafeAre>
   );
 };
