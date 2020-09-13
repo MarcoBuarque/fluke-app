@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {StyleSheet, FlatList, ScrollView} from 'react-native';
-import PropTypes from 'prop-types';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 // Service
@@ -14,12 +13,6 @@ import ErrorText from './../../../components/ErrorText';
 // Utils
 import {MIN_DATE, MAX_DATE, MIN_DATE_TO_USE} from './../../../utils/constants';
 import {formatDate} from './../../../utils/numberUtils';
-
-const testSecondRout = [
-  {voice: 600, data: 2048, date: '2020-08-01'},
-  {voice: 120, data: 1048, date: '2020-08-02'},
-  {voice: 360, data: 256, date: '2020-08-03'},
-];
 
 export const SecondRoute = () => {
   const [dateStart, setDateStart] = useState(MIN_DATE_TO_USE);
@@ -107,14 +100,7 @@ export const SecondRoute = () => {
   };
 
   return (
-    <ScrollView
-      style={styles.container}
-      refreshControl={
-        <Utils.RefreshControlStyled
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />
-      }>
+    <Utils.Container flex={1}>
       <Utils.Row justify="space-around">
         <DateSelector
           label="De:"
@@ -147,23 +133,33 @@ export const SecondRoute = () => {
           minimumDate={dateStart}
         />
       )}
-      <Utils.View style={styles.listWrapper}>
-        <FlatList
-          keyExtractor={(item, index) => `${index}-${item.date}`}
-          data={historyData}
-          renderItem={HistoryItem}
-          showsVerticalScrollIndicator={false}
-        />
-      </Utils.View>
-      {fetchData && <Utils.LoadingIndicator />}
-      {!fetchData && fetchError && <ErrorText />}
-    </ScrollView>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <Utils.RefreshControlStyled
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }>
+        <Utils.View style={styles.listWrapper}>
+          <FlatList
+            keyExtractor={(item, index) => `${index}-${item.date}`}
+            data={historyData}
+            renderItem={HistoryItem}
+            showsVerticalScrollIndicator={false}
+            onEndReachedThreshold={0.8}
+          />
+        </Utils.View>
+        {fetchData && <Utils.LoadingIndicator />}
+        {!fetchData && fetchError && <ErrorText />}
+      </ScrollView>
+    </Utils.Container>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, padding: 16},
-  listWrapper: {flex: 1, paddingTop: 10},
+  container: {flex: 1},
+  listWrapper: {flex: 1},
 });
 
 export default SecondRoute;
