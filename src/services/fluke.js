@@ -2,6 +2,9 @@ import axios from 'axios';
 import {FLUKE_API} from '@env';
 import get from 'lodash/get';
 
+// Utils
+import {formatDataMobile} from './../utils/numberUtils';
+
 export const fetchMobileDataPlan = async () => {
   try {
     const {data} = await axios.get(`${FLUKE_API}/usage/packageInformation/`);
@@ -29,7 +32,6 @@ export const fetchMobileDataPlan = async () => {
 };
 
 export const fetchHistoryData = async (startObj, endObj) => {
-  // TODO CONVERTER MB PARA GB
   try {
     const startDate = `${startObj.year}-${startObj.month}-${startObj.day}`;
     const endDate = `${endObj.year}-${endObj.month}-${endObj.day}`;
@@ -37,6 +39,12 @@ export const fetchHistoryData = async (startObj, endObj) => {
     const {data} = await axios.get(
       `${FLUKE_API}/usage/records/?startDate=${startDate}&endDate=${endDate}/`,
     );
+
+    data.forEach((item) => {
+      const {value, dataType} = formatDataMobile(item.data);
+      item.data = value;
+      item.dataType = dataType;
+    });
 
     return data;
   } catch (error) {

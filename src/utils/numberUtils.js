@@ -21,9 +21,61 @@ export const formatDate = (dateObj) => {
         : dateObj.getDate().toString(),
     month:
       dateObj.getMonth() + 1 < 10
-        ? `0${dateObj.getMonth()}`
+        ? `0${dateObj.getMonth() + 1}`
         : dateObj.getMonth().toString(),
     year: dateObj.getFullYear().toString(),
+  };
+};
+
+export const convertDataType = (data) => {
+  let dataType = data.dataType;
+  let value = data.value;
+  const convert = data.value / 1000;
+
+  switch (data.dataType) {
+    case 'Bit':
+      if (convert > 1) {
+        dataType = 'KB';
+        value = convert.toFixed(2);
+      }
+      break;
+    case 'KB':
+      if (convert > 1) {
+        dataType = 'MB';
+        value = convert.toFixed(2);
+      }
+      break;
+    case 'MB':
+      if (convert > 1) {
+        dataType = 'GB';
+        value = convert.toFixed(2);
+      }
+      break;
+    default:
+      break;
+  }
+
+  return {
+    dataType,
+    value,
+  };
+};
+
+export const formatDataMobile = (data) => {
+  let dataType = 'Bit';
+  let value = data;
+  let prevDataType;
+
+  while (dataType !== prevDataType) {
+    const obj = convertDataType({dataType, value});
+    prevDataType = dataType;
+    dataType = obj.dataType;
+    value = obj.value;
+  }
+
+  return {
+    dataType,
+    value,
   };
 };
 

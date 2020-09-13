@@ -8,11 +8,11 @@ import {fetchHistoryData} from './../../../services/fluke';
 
 // Design
 import * as Utils from './../../../components/Utils';
-import {DateSelector, HistoricItem} from './elements';
+import {DateSelector, HistoryItem} from './elements';
 import ErrorText from './../../../components/ErrorText';
 
 // Utils
-import {MIN_DATE, MAX_DATE} from './../../../utils/constants';
+import {MIN_DATE, MAX_DATE, MIN_DATE_TO_USE} from './../../../utils/constants';
 import {formatDate} from './../../../utils/numberUtils';
 
 const testSecondRout = [
@@ -22,9 +22,9 @@ const testSecondRout = [
 ];
 
 export const SecondRoute = () => {
-  const [dateStart, setDateStart] = useState(MIN_DATE);
+  const [dateStart, setDateStart] = useState(MIN_DATE_TO_USE);
   // eslint-disable-next-line prettier/prettier
-  const [formatedDateStart, setFormatedDateStart] = useState(formatDate(MIN_DATE),);
+  const [formatedDateStart, setFormatedDateStart] = useState(formatDate(MIN_DATE_TO_USE));
   const [showStart, setShowStart] = useState(false);
   const [dateEnd, setDateEnd] = useState(MAX_DATE);
   const [formatedDateEnd, setFormatedDateEnd] = useState(formatDate(MAX_DATE));
@@ -43,11 +43,18 @@ export const SecondRoute = () => {
   const fetchHistory = useCallback(
     async (isRefreshControl = false) => {
       try {
-        const response = await fetchHistoryData(
+        const historyList = await fetchHistoryData(
           formatedDateStart,
           formatedDateEnd,
         );
-        setHistoryData(response);
+
+        const sortedList = historyList.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateB.getTime() - dateA.getTime();
+        });
+
+        setHistoryData(sortedList);
       } catch (error) {
         setFetchError(true);
       } finally {
@@ -144,7 +151,7 @@ export const SecondRoute = () => {
         <FlatList
           keyExtractor={(item, index) => `${index}-${item.date}`}
           data={historyData}
-          renderItem={HistoricItem}
+          renderItem={HistoryItem}
           showsVerticalScrollIndicator={false}
         />
       </Utils.View>
