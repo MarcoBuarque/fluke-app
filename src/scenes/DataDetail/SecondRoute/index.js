@@ -40,13 +40,13 @@ export const SecondRoute = () => {
           formatedDateStart,
           formatedDateEnd,
         );
-
         const sortedList = historyList.sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
           return dateB.getTime() - dateA.getTime();
         });
 
+        // console.log('sortedList', sortedList);
         setHistoryData(sortedList);
       } catch (error) {
         setFetchError(true);
@@ -66,12 +66,11 @@ export const SecondRoute = () => {
     fetchHistory(true);
   }, []);
 
-  const choiceStartDate = (event) => {
+  const choiceStartDate = (event, date) => {
     const {
       nativeEvent: {timestamp},
       type,
     } = event;
-    const date = new Date(timestamp);
 
     setShowStart(false);
     if (type === 'set') {
@@ -85,12 +84,8 @@ export const SecondRoute = () => {
     }
   };
 
-  const choiceEndDate = (event) => {
-    const {
-      nativeEvent: {timestamp},
-      type,
-    } = event;
-    const date = new Date(timestamp);
+  const choiceEndDate = (event, date) => {
+    const {type} = event;
 
     setShowEnd(false);
     if (type === 'set') {
