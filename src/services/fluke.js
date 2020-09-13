@@ -9,19 +9,19 @@ export const fetchMobileDataPlan = async () => {
   try {
     const {data} = await axios.get(`${FLUKE_API}/usage/packageInformation/`);
 
-    const subscription = convertMbToGb(get(data, 'subscription', 0)); // Contratados
-    const topUp = convertMbToGb(get(data, 'topup', 0)); // Extra Contratados
-    const bonus = convertMbToGb(get(data, 'bonus', 0)); // Bonus
-    const available = convertMbToGb(get(data, 'available', 0)); // DIsponivel
+    const subscription = convertMbToGb(get(data, 'subscription', 0));
+    const topUp = convertMbToGb(get(data, 'topup', 0));
+    const bonus = convertMbToGb(get(data, 'bonus', 0));
+    const available = convertMbToGb(get(data, 'available', 0));
     const totalData = subscription + topUp + bonus;
     const usedData = totalData - available;
 
     return {
       title: 'Dados Móveis',
       subscription, // Contratados
-      topUp, // Extra Contratados
+      topUp, // Adicional Contratados
       bonus, // Bonus
-      available, // DIsponivel
+      available, // Disponivel
       totalData,
       usedData,
       dataType: 'GB',

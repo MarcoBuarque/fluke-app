@@ -46,7 +46,6 @@ export const SecondRoute = () => {
           return dateB.getTime() - dateA.getTime();
         });
 
-        // console.log('sortedList', sortedList);
         setHistoryData(sortedList);
       } catch (error) {
         setFetchError(true);
