@@ -42,14 +42,14 @@ const formatSectionsData = (data) => {
 
   const list = [
     {
-      name: 'Usado',
+      name: 'Utilizado',
       section: {
         percentage: numberToPercentage(usedPercentage),
         color: Colors.pieChart.used,
       },
     },
     {
-      name: 'Bonus',
+      name: 'Bônus',
       section: {
         percentage: numberToPercentage(bonusPercentage),
         color: Colors.pieChart.bonus,
