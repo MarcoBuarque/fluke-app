@@ -50,8 +50,8 @@ A estrutura de arquivos está resumida da seguinte maneira:
  ### Versionamento no Git ###
  O projeto foi divido em 4 etapas:
   - 1 Setup de desenvolvimento:
-    - Criação do projeto RN.
-    - Instalação das principais dependências.
+    - Criação do projeto RN
+    - Instalação das principais dependências
     - Reestruturação do projeto
     - Criação da estrutura de navegação
  
@@ -62,7 +62,7 @@ A estrutura de arquivos está resumida da seguinte maneira:
   - 3 Criação do Detail Data:
     - Criação do layout do DetailData screen
     
-  - 4 Alimentar as telas com os dados vindo da api:
+  - 4 Alimentar as telas com os dados vindo da API:
     - Criação do fluke service e as funções para alimentar a aplicação com os dados instantâneos e com o histórico
     - Conectar a Home Screen com o fluke service
     - Conectar a Detail Deta Screen com o fluke service
