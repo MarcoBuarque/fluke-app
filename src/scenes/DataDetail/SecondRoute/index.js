@@ -69,11 +69,10 @@ export const SecondRoute = () => {
   const choiceStartDate = (event, date) => {
     const {
       nativeEvent: {timestamp},
-      type,
     } = event;
 
     setShowStart(false);
-    if (type === 'set') {
+    if (date !== undefined) {
       setDateStart(date);
       setFormatedDateStart(formatDate(date));
 
@@ -85,10 +84,8 @@ export const SecondRoute = () => {
   };
 
   const choiceEndDate = (event, date) => {
-    const {type} = event;
-
     setShowEnd(false);
-    if (type === 'set') {
+    if (date !== undefined) {
       setDateEnd(date);
       setFormatedDateEnd(formatDate(date));
     }
