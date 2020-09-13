@@ -61,7 +61,6 @@ export const Home = ({navigation}) => {
   return (
     <Utils.SafeAre>
       <Header title="Home" rightComponent={() => <HelpButton />} />
-
       <Utils.Container style={styles.container}>
         <Utils.View paddingBottom={16}>
           <List

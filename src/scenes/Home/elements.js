@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ProgressCircle from 'react-native-progress-circle';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {ListItem} from 'react-native-elements';
+import isEmpty from 'lodash/isEmpty';
 
 // Design
 import * as Utils from './../../components/Utils';
@@ -14,6 +15,9 @@ import Colors from './../../utils/Style/Colors';
 // https://awesomeopensource.com/project/JesperLekland/react-native-svg-charts-examples
 
 export const Item = ({item}) => {
+  if (isEmpty(item)) {
+    return null;
+  }
   const {
     title,
     usedData,
@@ -43,7 +47,7 @@ export const Item = ({item}) => {
                   {title}
                 </Utils.Text>
               </Utils.View>
-              <Utils.Row align="center">
+              <Utils.Row align="center" marginRight={disabled ? 30 : 1}>
                 <Utils.View paddingRight={20} flex={0.5}>
                   <Utils.Text size={12} numberOfLines={1} color={Colors.black}>
                     Disponíveis: {`${available} ${dataType}`}
