@@ -22,10 +22,7 @@ export const DataDetail = ({route, navigation}) => {
 
   return (
     <Utils.SafeAre>
-      <Header
-        title={`Detalhes dos ${type}`}
-        onGoBack={() => navigation.goBack()}
-      />
+      <Header title={`${type}`} onGoBack={() => navigation.goBack()} />
       {/* <Utils.Container> */}
       <TabView firstRoute={firstRoute} secondRoute={secondRoute} />
       {/* </Utils.Container> */}

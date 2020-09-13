@@ -2,9 +2,6 @@ import React from 'react';
 import {TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-// Design
-import * as Utils from './../Utils';
-
 export const GoBack = ({onPress}) => {
   return (
     <TouchableOpacity style={styles.goBackWrapper} onPress={onPress}>

@@ -2,7 +2,6 @@ import React from 'react';
 import {FlatList} from 'react-native';
 import PropTypes from 'prop-types';
 import Pie from 'react-native-pie';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 // Design
 import * as Utils from './../../../components/Utils';
@@ -105,9 +104,6 @@ export const FirstRoute = ({data}) => {
           <Utils.Text size={14}>
             DISPONÍVEL: {data.available} {data.dataType}
           </Utils.Text>
-        </Utils.View>
-        <Utils.View padding={6} style={{position: 'absolute', right: 0}}>
-          <Icon name="information-circle-outline" size={20} />
         </Utils.View>
       </Utils.Row>
     </Utils.Container>

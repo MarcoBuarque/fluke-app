@@ -11,8 +11,6 @@ export const convertMinToHr = (time) => {
   };
 };
 
-export const convertMbToGb = (data) => {};
-
 export const formatDate = (dateObj) => {
   return {
     day:
@@ -60,6 +58,8 @@ export const convertDataType = (data) => {
     value,
   };
 };
+
+export const convertMbToGb = (data) => Number((data / 1000).toFixed(2));
 
 export const formatDataMobile = (data) => {
   let dataType = 'Bit';
