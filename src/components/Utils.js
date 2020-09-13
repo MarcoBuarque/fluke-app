@@ -123,7 +123,7 @@ export const Text = styled.Text`
 Text.propTypes = {
   color: PropTypes.string,
   size: PropTypes.number,
-  secondary: PropTypes.string,
+  secondary: PropTypes.bool,
 };
 
 Text.defaultProps = {

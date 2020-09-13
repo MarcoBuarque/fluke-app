@@ -12,7 +12,7 @@ import {formatDate} from './../../../utils/numberUtils';
 
 export const DateSelector = ({label, onPress, dateObj}) => (
   <Utils.Row align="center" background="black" padding={6} borderRadius={6}>
-    <Utils.Text secondary={true} size={14}>
+    <Utils.Text secondary size={14}>
       {label}
     </Utils.Text>
     <TouchableOpacity onPress={onPress}>
