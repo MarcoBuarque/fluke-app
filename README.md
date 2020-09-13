@@ -10,16 +10,43 @@
 ### Pré-requisitos ###
  - [O ambiente de desenvolvimento React Native pré-configurado](http://react-native.rocketseat.dev/)
  - O .env do projeto para ter acesso ao(s) Endpoint(s)
- 
-### Començando (Android)###
-Após clonar o projeto basta realizar os seguintes passos no terminal: 
- 1 - Abrir um emulador ou conectar o seu device no computador
- 2 - Rodar o comando 'yarn' para baixar as depedências do projeto
- 3 - Rodar o comando 'yarn android' para instalar o app no emulador/celular
- 4 - Rodar o comando 'yarn start' 
 
 
- 
+### Començando (Android) ###
+ Após clonar o projeto basta realizar os seguintes passos no terminal: 
+  - 1 Abrir um emulador ou conectar o seu device no computador
+  - 2 Rodar o comando 'yarn' para baixar as depedências do projeto
+  - 3 Rodar o comando 'yarn android' para instalar o app no emulador/celular
+  - 4 Rodar o comando 'yarn start' 
+
+
+ ### Estrutura de Arquivos ###
+A estrutura de arquivos está resumida da seguinte maneira:
+
+    flukeApp
+    ├── src/
+    │   ├── assets/
+    │   │   └── ...
+    │   ├── components/
+    │   │   └── ...
+    │   ├── navigation/
+    │   │   └── index.js
+    │   ├── scenes/
+    │   │   └── ...
+    │   ├── services/
+    │   │   └── fluke.js
+    │   ├── utils/
+    │   │   └── ...
+    ├── .babelrc
+    ├── .env
+    ├── .gitignore
+    ├── app.json
+    ├── babel.config.js
+    ├── index.js
+    ├── LICENSE
+    ├── package.json
+    └── README.md
+
  ### Versionamento no Git ###
  O projeto foi divido em 4 etapas:
   - 1 Setup de desenvolvimento:
