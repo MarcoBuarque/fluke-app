@@ -1,3 +1,4 @@
+import {ActivityIndicator, RefreshControl} from 'react-native';
 import PropTypes from 'prop-types';
 import styled, {css} from 'styled-components';
 
@@ -159,3 +160,12 @@ SafeAre.propTypes = {
 SafeAre.defaultProps = {
   background: Colors.background,
 };
+
+export const LoadingIndicator = styled(ActivityIndicator).attrs((props) => ({
+  size: 'large',
+  color: Colors.secondaryText,
+}))``;
+
+export const RefreshControlStyled = styled(RefreshControl).attrs((props) => ({
+  colors: [Colors.secondaryText],
+}))``;

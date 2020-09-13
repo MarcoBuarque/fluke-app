@@ -10,6 +10,15 @@ const Colors = {
   text: '#818181',
   secondaryText: '#0ef500',
   button: '#7CFC00',
+  pieChart: {
+    used: '#f00',
+    bonus: '#404FCD',
+    topUp: '#EBD22F',
+    subscription: '#7CFC00',
+  },
+
+  // Actions
+  error: '#ff3333',
 };
 
 export default Colors;

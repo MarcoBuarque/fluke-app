@@ -34,15 +34,15 @@ export const DateSelector = ({label, onPress, dateObj}) => (
 DateSelector.prototype = {
   label: PropTypes.string,
   onPress: PropTypes.func,
-  dateObj: PropTypes.objectOf(PropTypes.number).isRequired,
+  dateObj: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 DateSelector.defaultProps = {
   onPress: () => {},
 };
 
-export const HistoricItem = ({item}) => {
-  const {date, voice, data} = item;
+export const HistoryItem = ({item}) => {
+  const {date, voice, data, dataType} = item;
   return (
     <Utils.View
       marginTop={16}
@@ -63,7 +63,7 @@ export const HistoricItem = ({item}) => {
         <Utils.Row align="center">
           <Utils.Text color="black">Dados:</Utils.Text>
           <Utils.Text color="black" size={14}>
-            {data} MB
+            {data} {dataType}
           </Utils.Text>
         </Utils.Row>
       </Utils.Row>
