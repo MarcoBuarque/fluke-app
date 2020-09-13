@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {ScrollView, RefreshControl} from 'react-native';
 import {StyleSheet} from 'react-native';
 
@@ -9,6 +9,7 @@ import {fetchMobileDataPlan} from './../../services/fluke';
 import {List} from './elements';
 import * as Utils from './../../components/Utils';
 import Header from './../../components/Header';
+import ErrorText from './../../components/ErrorText';
 
 // Utils
 import Colors from './../../utils/Style/Colors';
@@ -29,7 +30,7 @@ export const Home = ({navigation}) => {
   const [fetchError, setFetchError] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     fetchMobileData();
   }, []);
 
@@ -76,11 +77,7 @@ export const Home = ({navigation}) => {
             <List list={[voiceData, dataMobile]} />
           </Utils.View>
           {fetchData && <Utils.LoadingIndicator />}
-          {fetchError && (
-            <Utils.Text color={Colors.error}>
-              Algo deu errado no fetch dos dados, por favor tente novamente.
-            </Utils.Text>
-          )}
+          {!fetchData && fetchError && <ErrorText />}
         </Utils.Container>
       </ScrollView>
     </Utils.SafeAre>

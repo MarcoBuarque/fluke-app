@@ -15,9 +15,15 @@ export const convertMbToGb = (data) => {};
 
 export const formatDate = (dateObj) => {
   return {
-    day: dateObj.getDate(),
-    month: dateObj.getMonth() + 1,
-    year: dateObj.getFullYear(),
+    day:
+      dateObj.getDate() < 10
+        ? `0${dateObj.getDate()}`
+        : dateObj.getDate().toString(),
+    month:
+      dateObj.getMonth() + 1 < 10
+        ? `0${dateObj.getMonth()}`
+        : dateObj.getMonth().toString(),
+    year: dateObj.getFullYear().toString(),
   };
 };
 

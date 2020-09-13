@@ -163,7 +163,7 @@ SafeAre.defaultProps = {
 
 export const LoadingIndicator = styled(ActivityIndicator).attrs((props) => ({
   size: 'large',
-  colors: Colors.secondaryText,
+  color: Colors.secondaryText,
 }))``;
 
 export const RefreshControlStyled = styled(RefreshControl).attrs((props) => ({

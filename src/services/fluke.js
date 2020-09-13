@@ -27,3 +27,19 @@ export const fetchMobileDataPlan = async () => {
     throw error;
   }
 };
+
+export const fetchHistoryData = async (startObj, endObj) => {
+  // TODO CONVERTER MB PARA GB
+  try {
+    const startDate = `${startObj.year}-${startObj.month}-${startObj.day}`;
+    const endDate = `${endObj.year}-${endObj.month}-${endObj.day}`;
+
+    const {data} = await axios.get(
+      `${FLUKE_API}/usage/records/?startDate=${startDate}&endDate=${endDate}/`,
+    );
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

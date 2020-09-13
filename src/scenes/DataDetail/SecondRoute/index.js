@@ -1,11 +1,15 @@
-import React, {useState} from 'react';
-import {StyleSheet, FlatList} from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {StyleSheet, FlatList, ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+
+// Service
+import {fetchHistoryData} from './../../../services/fluke';
 
 // Design
 import * as Utils from './../../../components/Utils';
 import {DateSelector, HistoricItem} from './elements';
+import ErrorText from './../../../components/ErrorText';
 
 // Utils
 import {MIN_DATE, MAX_DATE} from './../../../utils/constants';
@@ -26,6 +30,42 @@ export const SecondRoute = () => {
   const [formatedDateEnd, setFormatedDateEnd] = useState(formatDate(MAX_DATE));
   const [showEnd, setShowEnd] = useState(false);
 
+  const [historyData, setHistoryData] = useState([]);
+  const [fetchData, setFetchData] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    setFetchData(true);
+    fetchHistory();
+  }, [formatedDateStart, formatedDateEnd, fetchHistory]);
+
+  const fetchHistory = useCallback(
+    async (isRefreshControl = false) => {
+      try {
+        const response = await fetchHistoryData(
+          formatedDateStart,
+          formatedDateEnd,
+        );
+        setHistoryData(response);
+      } catch (error) {
+        setFetchError(true);
+      } finally {
+        if (isRefreshControl) {
+          setRefreshing(false);
+        } else {
+          setFetchData(false);
+        }
+      }
+    },
+    [formatedDateStart, formatedDateEnd],
+  );
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchHistory(true);
+  }, []);
+
   const choiceStartDate = (event) => {
     const {
       nativeEvent: {timestamp},
@@ -38,7 +78,6 @@ export const SecondRoute = () => {
       setDateStart(date);
       setFormatedDateStart(formatDate(date));
 
-      console.log(timestamp > dateEnd.getTime());
       if (timestamp > dateEnd.getTime()) {
         setDateEnd(date);
         setFormatedDateEnd(formatDate(date));
@@ -61,7 +100,14 @@ export const SecondRoute = () => {
   };
 
   return (
-    <Utils.Container style={{flex: 1}}>
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <Utils.RefreshControlStyled
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }>
       <Utils.Row justify="space-around">
         <DateSelector
           label="De:"
@@ -97,16 +143,19 @@ export const SecondRoute = () => {
       <Utils.View style={styles.listWrapper}>
         <FlatList
           keyExtractor={(item, index) => `${index}-${item.date}`}
-          data={testSecondRout}
+          data={historyData}
           renderItem={HistoricItem}
           showsVerticalScrollIndicator={false}
         />
       </Utils.View>
-    </Utils.Container>
+      {fetchData && <Utils.LoadingIndicator />}
+      {!fetchData && fetchError && <ErrorText />}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {flex: 1, padding: 16},
   listWrapper: {flex: 1, paddingTop: 10},
 });
 

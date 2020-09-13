@@ -34,7 +34,7 @@ export const DateSelector = ({label, onPress, dateObj}) => (
 DateSelector.prototype = {
   label: PropTypes.string,
   onPress: PropTypes.func,
-  dateObj: PropTypes.objectOf(PropTypes.number).isRequired,
+  dateObj: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 DateSelector.defaultProps = {
