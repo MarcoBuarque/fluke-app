@@ -44,7 +44,7 @@ DateSelector.defaultProps = {
 
 export const HistoryItem = ({item}) => {
   const {date, voice, data, dataType} = item;
-  const dateObj = new Date(date);
+  const dateObj = new Date(`${date}T03:00:00.000Z`);
   const formatedDate = formatDate(dateObj);
 
   return (
